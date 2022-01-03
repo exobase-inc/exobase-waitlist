@@ -237,6 +237,11 @@ const JoinFormCard = ({
 }) => {
   const [state, setState] = useState('')
   var isValid = /(.+)@(.+){2,}\.(.+){2,}/.test(state)
+  const onKeyUp: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (isValid && e.key === 'Enter') {
+      onSubmit?.(state)
+    }
+  }
   return (
     <Card
       elevation={1}
@@ -256,6 +261,7 @@ const JoinFormCard = ({
           placeholder="sunny@gmail.com"
           value={state}
           onChange={(e: any) => setState(e.target.value)}
+          onKeyUp={onKeyUp}
         />
         <Button
           disabled={!isValid}
@@ -430,30 +436,32 @@ const GiphyEmbed = () => {
   )
 }
 
-const useRotatingState = (args: {
+const useRotatingState = ({
+  items,
+  interval,
+  onComplete
+}: {
   items: string[]
   interval: number
   onComplete?: () => void
 }) => {
-  const [item, setItem] = useState(args.items[0])
-  console.log('item: ', item)
-  const total = args.items.length
-  const current = args.items.indexOf(item)
+  const [start] = useState(Date.now())
+  const [now, setNow] = useState(Date.now())
   useEffect(() => {
     const iid = setInterval(() => {
-      console.log({ current, total })
-      if (current === total) return
-      console.log('setting to: ', {
-        idx: current + 1,
-        item: args.items[current + 1]
-      })
-      setItem(args.items[current + 1])
-    }, args.interval)
+      setNow(Date.now())
+      const idx = Math.round((Date.now() - start) / interval)
+      if (idx > items.length - 1) {
+        onComplete?.()
+      }
+    }, interval)
     return () => {
       clearInterval(iid)
     }
   }, [])
-  return item
+  const idx = Math.round((now - start) / interval)
+  if (idx > items.length - 1) return ''
+  return items[idx]
 }
 
 const WaitlistLoadingExperience = ({
@@ -463,7 +471,7 @@ const WaitlistLoadingExperience = ({
   onComplete?: () => void
 } & ArgumentTypes<typeof Card>[0]) => {
   const step = useRotatingState({
-    interval: 750,
+    interval: 2000,
     onComplete,
     items: [
       'Beggining waitlist due diligence',
@@ -477,6 +485,8 @@ const WaitlistLoadingExperience = ({
       {...rest}
       elevation={1}
       padding={majorScale(2)}
+      width={500}
+      maxWidth={500}
     >
       <Heading
         size={800}
@@ -486,6 +496,7 @@ const WaitlistLoadingExperience = ({
         Verifying Access
       </Heading>
       <Paragraph
+        textAlign='center'
         maxWidth={500}
         size={500}
       >
