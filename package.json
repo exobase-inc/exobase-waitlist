@@ -1,0 +1,60 @@
+{
+  "name": "exobase-waitlist",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@exobase/client-js": "^0.0.35",
+    "@hookform/resolvers": "^2.8.4",
+    "date-fns": "^2.27.0",
+    "evergreen-ui": "^6.6.3",
+    "lodash.throttle": "^4.1.1",
+    "query-string": "^7.0.1",
+    "radash": "^1.5.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.21.0",
+    "react-icons": "^4.3.1",
+    "react-scripts": "4.0.3",
+    "react-socks": "^2.2.0",
+    "styled-components": "^5.3.3",
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "reinstall": "yarn remove @exobase/client-js && yarn add @exobase/client-js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/lodash.throttle": "^4.1.6",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/styled-components": "^5.1.15",
+    "typescript": "^4.1.2"
+  }
+}
